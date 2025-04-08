@@ -1,1 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiveZRoori - Donate Items Effortlessly</title>
+    <!-- Link Google Fonts (Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
+    <style>
+        /* --- CSS Reset & Base Styles --- */
+        :root {
+            --primary-blue: #1a3a6d; /* Sampled from logo text/hand */
+            --accent-green: #2a9d8f; /* Approximated from gradient start */
+            --accent-orange: #e76f51; /* Approximated from gradient end */
+            --gradient-start: #26a69a; /* Tealish green */
+            --gradient-mid: #fbc02d;  /* Yellowish */
+            --gradient-end: #e65100; /* Orangey-red */
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #555555;
+            --border-color: #dee2e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--primary-blue);
+            margin-bottom: 0.8em;
+            line-height: 1.3;
+        }
+
+        h1 { font-size: 2.8rem; }
+        h2 { font-size: 2rem; text-align: center; margin-bottom: 1.5em; }
+        h3 { font-size: 1.4rem; }
+        h4 { font-size: 1.1rem; margin-bottom: 0.5em;}
+
+        p {
+            margin-bottom: 1em;
+            color: var(--text-light);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--accent-orange);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        ul, ol {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        section {
+            padding: 60px 0;
+            /* Default display for sections that should be part of the homepage flow */
+            display: block;
+        }
+
+        /* --- Initially Hide About Section --- */
+        section#about {
+            display: none; /* Hide About Us section by default */
+        }
+
+
+        /* --- Header & Navigation --- */
+        .main-header {
+            background-color: var(--white);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .logo-text {
+             font-size: 1.5rem;
+             font-weight: 700;
+             color: var(--primary-blue);
+        }
+
+        .main-nav ul {
+            display: flex;
+            gap: 25px;
+        }
+
+        .main-nav a {
+            color: var(--primary-blue);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: var(--accent-orange);
+        }
+
+        /* --- Mobile Menu --- */
+        .menu-toggle {
+            display: none;
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-orange);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #d85a3d;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Small utility class */
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            background: linear-gradient(135deg, rgba(42, 157, 143, 0.1), rgba(231, 111, 81, 0.1)), var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        #hero h1 {
+            color: var(--primary-blue);
+            margin-bottom: 0.5em;
+        }
+
+        #hero .subtext {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 1.5em auto;
+        }
+
+        #hero .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        /* --- About Us Section Styles (kept same for structure) --- */
+        #about {
+            background-color: var(--white);
+        }
+        #about h3 { /* Adjusted slightly based on content */
+            margin-top: 1.5em; /* Reduced top margin slightly */
+            margin-bottom: 0.8em; /* Reduced bottom margin slightly */
+            text-align: left;
+            border-bottom: 2px solid var(--accent-green);
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+        /* Targeting specific paragraphs if needed */
+         #about .about-intro p {
+             font-size: 1.1rem;
+             max-width: 900px; /* Allow slightly wider text */
+             margin-left: 0; /* Align left */
+             margin-right: 0;
+             text-align: left; /* Align left */
+             margin-bottom: 1.5em;
+        }
+        /* Paragraphs directly under container and after h3 */
+        #about > .container > p {
+            max-width: 900px;
+            text-align: left;
+            color: var(--text-light);
+        }
+
+
+        #about .how-it-works-recap ol {
+            list-style: decimal;
+            margin-left: 20px;
+            margin-bottom: 1.5em;
+        }
+         #about .how-it-works-recap li {
+              margin-bottom: 0.5em;
+              color: var(--text-light);
+         }
+         #about .how-it-works-recap p { /* Style the "It's that easy" text */
+             text-align: left;
+             font-weight: 600;
+             color: var(--primary-blue);
+             margin-top: -0.5em; /* Pull closer to list */
+         }
+
+        .values-list {
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+             gap: 25px;
+             margin-top: 1em;
+        }
+         .values-list li {
+             background-color: var(--light-bg);
+             padding: 20px;
+             border-radius: 5px;
+             border-left: 4px solid var(--accent-orange);
+         }
+         .values-list strong {
+             /* display: block; */ /* Removed display block */
+             color: var(--primary-blue);
+             /* margin-bottom: 5px; */ /* Removed margin bottom */
+             font-weight: 700; /* Made slightly bolder */
+         }
+
+        .founders-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+             gap: 30px;
+             margin-top: 1em;
+             margin-bottom: 1em; /* Added margin bottom */
+        }
+        .founder-card {
+            text-align: center;
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+         .founder-card .founder-img {
+             width: 120px;
+             height: 120px;
+             border-radius: 50%;
+             background-color: var(--border-color);
+             margin: 0 auto 15px auto;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             color: var(--text-light);
+             font-size: 0.9rem;
+             background-size: cover;
+             background-position: center;
+         }
+         .founder-card h4 {
+             color: var(--primary-blue);
+             margin-bottom: 5px;
+         }
+         .founder-card .founder-title {
+             font-weight: 600;
+             color: var(--accent-green);
+             margin-bottom: 10px;
+             display: block;
+         }
+         /* Paragraph within founder card */
+         .founder-card p {
+             font-size: 0.95rem; /* Slightly smaller text */
+             text-align: center;
+         }
+
+        .join-movement {
+             /* margin-top: 2.5em; */ /* Removed top margin, handled by h3 */
+             text-align: left; /* Align left */
+             /* font-size: 1.2rem; */ /* Removed font size */
+             /* font-weight: 600; */ /* Removed font weight */
+             /* color: var(--primary-blue); */ /* Removed color */
+        }
+        .join-movement p {
+            color: var(--text-light); /* Use standard paragraph color */
+            font-size: 1.1rem; /* Slightly larger */
+            max-width: 900px;
+        }
+
+        /* --- How It Works Section --- */
+        #how-it-works {
+            background-color: var(--light-bg);
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            flex-basis: 30%;
+            min-width: 250px;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--accent-green);
+        }
+
+        .step .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-green);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+         /* Color adjustments for steps - Note: CSS logic below for background might override border color */
+         .step:nth-child(1) .step-number, .step:nth-child(1) { border-top-color: var(--accent-green); }
+         .step:nth-child(1) .step-number { background-color: var(--accent-green); }
+         .step:nth-child(2) .step-number, .step:nth-child(2) { border-top-color: #fbc02d; } /* Yellow border */
+         .step:nth-child(2) .step-number { background-color: #fbc02d; } /* Yellow circle */
+         .step:nth-child(3) .step-number, .step:nth-child(3) { border-top-color: var(--accent-orange); } /* Orange border */
+         .step:nth-child(3) .step-number { background-color: var(--accent-orange); } /* Orange circle */
+
+
+        .step h3 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-size: 1.3rem; /* Slightly increased size */
+        }
+
+        /* --- Donate Page Specific Styles (kept same) --- */
+        .donate-page-section {}
+        .donate-page-section h2 { margin-bottom: 1.5em; }
+        .donate-options-container { display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px; }
+        .donate-option-card { flex: 1; min-width: 300px; max-width: 450px; background-color: var(--light-bg); padding: 30px; border-radius: 8px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; }
+        .donate-option-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .donate-option-icon { font-size: 3rem; margin-bottom: 15px; line-height: 1; }
+        .donate-option-card h3 { color: var(--primary-blue); margin-bottom: 10px; }
+        .donate-option-card p { margin-bottom: 20px; color: var(--text-light); flex-grow: 1; }
+        .item-category-container h4, .donation-form-container h3, #donate-money-form-container h4 { text-align: center; color: var(--primary-blue); margin-bottom: 20px; }
+        .item-category-buttons { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+        .item-category-btn { padding: 15px 25px; background-color: var(--white); border: 2px solid var(--accent-green); color: var(--accent-green); border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+        .item-category-btn .icon { font-size: 1.2em; }
+        .item-category-btn:hover, .item-category-btn.active { background-color: var(--accent-green); color: var(--white); }
+        .donation-form-container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); border: 1px solid var(--border-color); text-align: left; margin-top: 20px; }
+        .donation-form .form-group { margin-bottom: 20px; }
+        .donation-form label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary-blue); }
+        .donation-form input[type="text"], .donation-form input[type="email"], .donation-form input[type="tel"], .donation-form input[type="number"], .donation-form input[type="date"], .donation-form input[type="time"], .donation-form select, .donation-form textarea { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 1rem; font-family: inherit; transition: border-color 0.3s ease; }
+        .donation-form input:focus, .donation-form select:focus, .donation-form textarea:focus { border-color: var(--primary-blue); outline: none; }
+        .donation-form textarea { resize: vertical; min-height: 80px; }
+        .donation-form .radio-group label, .donation-form .checkbox-group label { display: inline-block; margin-right: 20px; margin-bottom: 5px; font-weight: 400; color: var(--text-dark); cursor: pointer; vertical-align: middle; }
+        .donation-form .radio-group input[type="radio"], .donation-form .checkbox-group input[type="checkbox"] { margin-right: 5px; vertical-align: middle; }
+        .donation-form .amount-options .radio-group { margin-bottom: 10px; }
+        .pickup-dropoff-form { margin-top: 25px; padding-top: 20px; border-top: 1px dashed var(--border-color); }
+        .pickup-dropoff-form h4 { font-size: 1.1rem; color: var(--primary-blue); margin-bottom: 15px; }
+        .confirmation-message h3 { color: var(--accent-green); margin-bottom: 15px; }
+        .confirmation-message p { color: var(--text-dark); font-size: 1.1rem; margin-bottom: 10px; }
+        .confirmation-message strong { color: var(--primary-blue); }
+        .confirmation-message div { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+
+        /* --- Featured NGOs Section --- */
+        #featured-ngos { background-color: var(--light-bg); }
+        /* Make the grid center the single item */
+        .ngo-grid {
+             display: grid;
+             /* grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); */ /* Removed auto-fit */
+             grid-template-columns: minmax(280px, 1fr); /* Single column */
+             gap: 30px;
+             margin-top: 30px;
+             justify-content: center; /* Center the grid container itself if needed */
+             max-width: 600px; /* Max width for the single centered card */
+             margin-left: auto;
+             margin-right: auto;
+        }
+        .ngo-card { background-color: var(--white); border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .ngo-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .ngo-card img {
+            width: 100%;
+            height: 200px; /* Adjusted height slightly */
+            object-fit: contain; /* Changed from cover to contain to show full logo */
+            padding: 10px; /* Added padding around the logo */
+            background-color: #fff; /* Ensure white background if logo has transparency */
+        }
+        .ngo-card-content { padding: 20px; }
+        .ngo-card h3 { margin-bottom: 10px; }
+        .ngo-card .ngo-cause { display: inline-block; background-color: var(--light-bg); color: var(--primary-blue); padding: 3px 10px; border-radius: 15px; font-size: 0.8rem; margin-bottom: 10px; }
+
+        /* --- Why GiveZRoori Section --- */
+        #why-us { background-color: var(--white); }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: center; }
+        .feature-item { padding: 20px; }
+        .feature-item .icon { font-size: 2.5rem; color: var(--accent-green); margin-bottom: 15px; }
+        .feature-item h3 { font-size: 1.2rem; color: var(--primary-blue); }
+
+        /* --- Testimonials Section --- */
+        #testimonials { background-color: var(--light-bg); }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .testimonial-card { background-color: var(--white); padding: 25px; border-radius: 8px; border-left: 5px solid var(--primary-blue); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .testimonial-card blockquote { font-style: italic; margin-bottom: 15px; color: var(--text-light); position: relative; padding-left: 25px; }
+        .testimonial-card blockquote::before { content: '“'; position: absolute; left: 0; top: -10px; font-size: 2.5rem; color: var(--primary-blue); opacity: 0.3; }
+        .testimonial-author { display: flex; align-items: center; }
+        .testimonial-author img { width: 50px; height: 50px; border-radius: 50%; margin-right: 15px; object-fit: cover; }
+        .testimonial-author cite { font-weight: 600; color: var(--primary-blue); }
+
+        /* --- Footer --- */
+        .main-footer { background-color: var(--primary-blue); color: var(--white); padding: 40px 0 20px 0; margin-top: 60px; }
+        .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; margin-bottom: 30px; }
+        .footer-section h4 { color: var(--white); margin-bottom: 15px; font-size: 1.1rem; }
+        .footer-section ul li { margin-bottom: 8px; }
+        .footer-section ul li a { color: #cccccc; transition: color 0.3s ease; }
+        .footer-section ul li a:hover { color: var(--white); }
+        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #4a6a9d; font-size: 0.9rem; color: #cccccc; }
+        .footer-socials a { color: var(--white); margin: 0 8px; font-size: 1.3rem; transition: color 0.3s ease; }
+        .footer-socials a:hover { color: var(--accent-orange); }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; } h2 { font-size: 1.8rem; } h3 { font-size: 1.3rem; }
+            .main-header .container { position: relative; }
+            .menu-toggle { display: block; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); }
+            .main-nav { display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: var(--white); box-shadow: 0 5px 10px rgba(0,0,0,0.1); border-top: 1px solid var(--border-color); }
+            .main-nav.active { display: block; }
+            .main-nav ul { flex-direction: column; padding: 20px; gap: 0; }
+            .main-nav ul li { text-align: center; padding: 10px 0; border-bottom: 1px solid var(--light-bg); }
+            .main-nav ul li:last-child { border-bottom: none; }
+            #hero .cta-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 80%; max-width: 300px;}
+            .steps-container { flex-direction: column; align-items: center; }
+            .step { flex-basis: 80%; }
+            #about .about-intro p, #about > .container > p, #about .join-movement p { font-size: 1rem; max-width: 100%; } /* Adjust about text on mobile */
+            #about h3 { margin-top: 1.5em; }
+            .footer-content { flex-direction: column; text-align: center; } .footer-section { margin-bottom: 20px;}
+            .donate-options-container { flex-direction: column; align-items: center; } .donate-option-card { width: 90%; max-width: 500px; }
+            .item-category-buttons { flex-direction: column; align-items: stretch; }
+            .confirmation-message div { flex-direction: column; align-items: center; } .confirmation-message .btn { width: 80%; max-width: 300px; }
+             .ngo-grid { max-width: 90%; } /* Allow single NGO card to take more width on mobile */
+             .ngo-card img { height: 150px; } /* Adjust logo height for mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+             <div class="logo">
+                <img src="givezroori_logo.png" alt="GiveZRoori Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="logo-text" style="display: none;">GiveZRoori</span>
+             </div>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">☰</button>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="#hero" class="nav-link homepage-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link about-us-link">About Us</a></li>
+                    <li><a href="#how-it-works" class="nav-link homepage-link">How It Works</a></li>
+                    <li><a href="#featured-ngos" class="nav-link homepage-link">Featured NGO</a></li> <!-- Updated text -->
+                    <li><a href="#donate-page" class="nav-link homepage-link">Donate</a></li>
+                     <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Hero Section -->
+        <section id="hero" class="main-content-section">
+           <div class="container">
+                <h1>Donate Items to the Right People. Effortlessly.</h1>
+                <p class="subtext">GiveZRoori connects your unused items to trusted NGOs in need, making giving simple and impactful.</p>
+                <div class="cta-buttons">
+                    <a href="#donate-page" class="btn btn-primary homepage-link">Donate Now</a>
+                    <a href="#featured-ngos" class="btn btn-secondary homepage-link">Featured NGO</a> <!-- Updated text -->
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section (Initially Hidden by CSS) -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2>About GiveZRoori</h2>
+
+                <!-- Updated "Who We Are" section -->
+                <h3>Who We Are</h3>
+                <div class="about-intro">
+                     <p>GiveZRoori is a purpose-driven platform that connects generous individuals with NGOs in need. We’re here to make donating everyday essentials—like clothes, books, toys, or gadgets—easier, more transparent, and truly impactful.</p>
+                </div>
+
+                <!-- Updated "Our Mission" section -->
+                <h3>Our Mission</h3>
+                <p>To bridge the gap between kindness and need. We aim to create a reliable system where your unused or extra items can bring real change to someone’s life.</p>
+
+                <!-- Updated "Why We Exist" section -->
+                <h3>Why We Exist</h3>
+                <p>Every home has something extra—something someone else desperately needs. We noticed how difficult it is to find trustworthy channels to donate items, and that’s where GiveZRoori comes in—to simplify and systematize the donation process for both givers and NGOs.</p>
+
+                <!-- Updated "How It Works" section -->
+                <h3>How It Works</h3>
+                 <div class="how-it-works-recap">
+                    <ol>
+                        <li>Choose Items to Donate</li>
+                        <li>Select a Verified NGO Near You</li>
+                        <li>Schedule a Pickup or Drop-off</li>
+                        <li>Track Your Impact</li>
+                    </ol>
+                    <p>It’s that easy.</p> <!-- Updated paragraph -->
+                 </div>
+
+                <!-- Updated "Our Values" section -->
+                <h3>Our Values</h3>
+                <ul class="values-list">
+                    <li><strong>Transparency</strong> – We ensure your donations reach where they’re needed.</li>
+                     <li><strong>Empathy</strong> – Every action we take is rooted in understanding and compassion.</li>
+                     <li><strong>Accessibility</strong> – Making it easy for everyone to give back, no matter where they are.</li>
+                    <li><strong>Sustainability</strong> – Giving a second life to your items reduces waste and helps the planet.</li>
+                </ul>
+
+                <!-- Updated "Founders" section -->
+                <h3>Founder & Co-Founder</h3> <!-- Updated heading -->
+                <div class="founders-grid">
+                    <div class="founder-card">
+                         <div class="founder-img"><span>Image</span></div> <!-- Kept image placeholder -->
+                         <h4>Divyanshu Diwan</h4>
+                         <span class="founder-title">Founder</span>
+                         <p>A visionary with a passion for creating social impact, Divyanshu believes in building a platform where every unused item can find its purpose.</p>
+                    </div>
+                     <div class="founder-card">
+                         <div class="founder-img"><span>Image</span></div> <!-- Kept image placeholder -->
+                         <h4>Nidhi Jha</h4>
+                         <span class="founder-title">Co-Founder</span>
+                         <p>A driven and compassionate leader, Nidhi brings creativity and heart to GiveZRoori’s mission, ensuring that every donation reaches the right hands.</p>
+                    </div>
+                </div>
+
+                <!-- Updated "Join the Movement" section -->
+                 <h3>Join the Movement</h3> <!-- Added heading -->
+                 <div class="join-movement">
+                    <p>At GiveZRoori, we believe every small act of giving is a step towards a better society. Be a part of the change—because your giving is zaroori.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- How It Works Section (Detailed) -->
+        <section id="how-it-works" class="main-content-section">
+             <div class="container">
+                <h2>How It Works in 3 Simple Steps</h2>
+                <div class="steps-container">
+                    <div class="step"><span class="step-number">1</span><h3>Choose Items to Donate</h3><p>Easily list clothes, books, furniture, or other items you no longer need.</p></div>
+                    <div class="step"><span class="step-number">2</span><h3>Select NGO & Pickup</h3><p>Browse verified NGOs near you and choose a convenient pickup or drop-off option.</p></div>
+                    <div class="step"><span class="step-number">3</span><h3>Track & See Your Impact</h3><p>Follow your donation's journey and see how your contribution makes a difference.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Donate Now Page Section -->
+        <section id="donate-page" class="donate-page-section main-content-section">
+             <div class="container">
+                <h2>Choose How You Want to Donate</h2>
+                <div class="donate-options-container">
+                    <div class="donate-option-card">
+                        <div><div class="donate-option-icon">💰</div><h3>Donate Money</h3><p>Support NGOs financially with a one-time or recurring donation.</p></div>
+                        <div><button class="btn btn-primary" onclick="showDonateMoneyForm()">Donate Money Now</button></div>
+                        <div id="donate-money-form-container" class="donation-form-container" style="display: none; text-align: left;">
+                            <h4>Enter Donation Details</h4>
+                            <form id="money-donation-form">
+                                <div class="form-group amount-options"><label>Select Amount (₹):</label><div class="radio-group"><label><input type="radio" name="amount" value="100"> 100</label><label><input type="radio" name="amount" value="500" checked> 500</label><label><input type="radio" name="amount" value="1000"> 1000</label><label><input type="radio" name="amount" value="custom"> Custom</label></div><input type="number" id="custom-amount" name="custom_amount" placeholder="Enter Custom Amount" style="display: none; margin-top: 10px; width: 100%; padding: 10px;"></div>
+                                <div class="form-group"><label for="payment-method">Payment Method:</label><p style="font-size: 0.9em; color: var(--text-light);">UPI, Credit/Debit Card, Net Banking (Integration Required)</p><div style="margin-top:10px; padding:15px; background:#eee; border-radius:4px; text-align:center; color:#888;">[ Payment Gateway Placeholder ]</div></div>
+                                <div class="form-group checkbox-group"><label><input type="checkbox" name="recurring"> Make this a monthly donation</label></div>
+                                <div class="form-group checkbox-group"><label><input type="checkbox" name="anonymous"> Donate anonymously</label></div>
+                                <button type="submit" class="btn btn-secondary" style="width: 100%;">Proceed to Payment</button><p style="font-size: 0.8em; margin-top: 15px; text-align: center;">Note: Payment Gateway integration needed.</p>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="donate-option-card">
+                         <div><div class="donate-option-icon">🎁</div><h3>Donate Items</h3><p>Give your pre-loved clothes, toys, books, and more a new life.</p></div>
+                         <div><button class="btn btn-primary" onclick="showDonateItemsOptions()">Choose Items to Donate</button></div>
+                        <div id="donate-items-options-container" class="item-category-container" style="display: none;">
+                            <h4>What would you like to donate?</h4>
+                            <div class="item-category-buttons"><button class="item-category-btn" data-form="donate-clothes-form"><span class="icon">👚</span> Clothes</button><button class="item-category-btn" data-form="donate-toys-form"><span class="icon">🧸</span> Toys</button><button class="item-category-btn" data-form="donate-books-form"><span class="icon">📚</span> Books</button><button class="item-category-btn" data-form="donate-other-form"><span class="icon">📦</span> Other Items</button></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="item-forms-wrapper">
+                    <div id="donate-clothes-form" class="donation-form-container item-donation-form" style="display: none;"><h3>Donate Clothes</h3><form class="donation-form" data-item-type="Clothes"><div class="form-group"><label>Type:</label><div class="radio-group"><label><input type="radio" name="clothes_type" value="Men" checked> Men</label><label><input type="radio" name="clothes_type" value="Women"> Women</label><label><input type="radio" name="clothes_type" value="Kids"> Kids</label></div></div><div class="form-group"><label>Condition:</label><div class="radio-group"><label><input type="radio" name="clothes_condition" value="New"> New</label><label><input type="radio" name="clothes_condition" value="Gently Used" checked> Gently Used</label></div></div><div class="pickup-dropoff-section"></div><button type="submit" class="btn btn-primary" style="width: 100%;">Submit Clothes Donation</button></form></div>
+                    <div id="donate-toys-form" class="donation-form-container item-donation-form" style="display: none;"><h3>Donate Toys</h3><form class="donation-form" data-item-type="Toys"><div class="form-group"><label>Type:</label><div class="radio-group"><label><input type="radio" name="toys_type" value="Educational" checked> Educational</label><label><input type="radio" name="toys_type" value="Soft Toys"> Soft Toys</label><label><input type="radio" name="toys_type" value="Others"> Others</label></div></div><div class="form-group"><label>Condition:</label><div class="radio-group"><label><input type="radio" name="toys_condition" value="New"> New</label><label><input type="radio" name="toys_condition" value="Gently Used" checked> Gently Used</label></div></div><div class="pickup-dropoff-section"></div><button type="submit" class="btn btn-primary" style="width: 100%;">Submit Toys Donation</button></form></div>
+                    <div id="donate-books-form" class="donation-form-container item-donation-form" style="display: none;"><h3>Donate Books</h3><form class="donation-form" data-item-type="Books"><div class="form-group"><label>Type:</label><div class="radio-group"><label><input type="radio" name="books_type" value="School" checked> School Books</label><label><input type="radio" name="books_type" value="Novels"> Novels</label><label><input type="radio" name="books_type" value="Kids Story"> Kids Story Books</label><label><input type="radio" name="books_type" value="Others"> Others</label></div></div><div class="form-group"><label for="book_language">Language:</label><select id="book_language" name="book_language"><option value="" disabled selected>-- Select Language --</option><option value="English">English</option><option value="Hindi">Hindi</option><option value="Marathi">Marathi</option><option value="Tamil">Tamil</option><option value="Telugu">Telugu</option><option value="Bengali">Bengali</option><option value="Other">Other</option></select></div><div class="pickup-dropoff-section"></div><button type="submit" class="btn btn-primary" style="width: 100%;">Submit Books Donation</button></form></div>
+                    <div id="donate-other-form" class="donation-form-container item-donation-form" style="display: none;"><h3>Donate Other Items</h3><form class="donation-form" data-item-type="Other Items"><p style="font-size: 0.9em; color: var(--text-light); margin-bottom: 15px;">Examples: Kitchen Utensils, Working Electronics, Furniture, Stationery etc.</p><div class="form-group"><label for="other_description">Item Description:</label><textarea id="other_description" name="other_description" rows="3" required placeholder="Briefly describe the item(s)"></textarea></div><div class="form-group"><label for="other_image">Upload Image (Optional):</label><input type="file" id="other_image" name="other_image" accept="image/*"></div><div class="pickup-dropoff-section"></div><button type="submit" class="btn btn-primary" style="width: 100%;">Submit Item Donation</button></form></div>
+                </div>
+                 <div id="confirmation-section" class="confirmation-message donation-form-container" style="display: none; margin-top: 40px; background-color: var(--light-bg); border-left: 5px solid var(--accent-green); text-align: center;"><h3>Thank You For Your Generosity!</h3><p>Your donation request has been received.</p><p>Your Reference ID: <strong id="reference-id">GZR-XXXXXX</strong></p><div style="margin-top: 20px;"><a href="#track-donation" class="btn btn-secondary btn-small">Track Your Donation</a><a href="#get-receipt" class="btn btn-secondary btn-small">Get Tax Receipt (if applicable)</a><a href="#share" class="btn btn-secondary btn-small">Share on Social Media</a></div></div>
+            </div>
+        </section>
+
+        <!-- Featured NGOs Section -->
+        <section id="featured-ngos" class="main-content-section">
+            <div class="container">
+                <h2>Featured NGO</h2> <!-- Changed heading slightly as there's only one -->
+                <div class="ngo-grid">
+                    <!-- Updated NGO Card -->
+                    <div class="ngo-card">
+                        <!-- Updated image source and alt text -->
+                        <img src="jtt_logo.png" alt="Join Together Trust (JTT) Logo">
+                        <div class="ngo-card-content">
+                            <h3>Join Together Trust (JTT)</h3>
+                            <span class="ngo-cause">Children's Education</span>
+                            <p>At Join Together Trust (JTT), we believe that education is not just a privilege but a fundamental human right. Since 2016, our mission has been to bring quality education to the children of laborers, ragpickers, and slum dwellers—those often left behind. Through our makeshift schools and community-driven initiatives, we reach where others don’t, ensuring every child has the opportunity to learn, grow, and realize their full potential.</p>
+                            <a href="https://www.wejointogether.in" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small">Learn More & Donate</a>
+                        </div>
+                    </div>
+                    <!-- Removed the other two NGO cards -->
+                </div>
+                 <!-- Removed the "Explore All NGOs" button -->
+                 <!-- <div style="text-align: center; margin-top: 40px;"><a href="#explore-ngos" class="btn btn-secondary homepage-link">Explore All NGOs</a></div> -->
+            </div>
+        </section>
+
+
+         <!-- Why GiveZRoori Section -->
+        <section id="why-us" class="main-content-section">
+            <div class="container">
+                 <h2>Why Choose GiveZRoori?</h2>
+                 <div class="features-grid">
+                     <div class="feature-item"><div class="icon">✔️</div><h3>Verified NGOs</h3><p>We partner only with thoroughly vetted and trusted non-profit organizations.</p></div>
+                     <div class="feature-item"><div class="icon">🚚</div><h3>Free & Easy Pickup</h3><p>Schedule convenient pickups right from your doorstep, often free of charge.</p></div>
+                      <div class="feature-item"><div class="icon">📍</div><h3>Trackable Donations</h3><p>Know exactly where your items go and the impact they make.</p></div>
+                       <div class="feature-item"><div class="icon">💖</div><h3>Make a Real Difference</h3><p>Your unused items get a second life helping those who need them most.</p></div>
+                 </div>
+             </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="main-content-section">
+            <div class="container">
+                <h2>What Our Users Say</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card"><blockquote>GiveZRoori made donating so simple! I loved being able to track my old books and see they reached a local school library.</blockquote><div class="testimonial-author"><img src="https://via.placeholder.com/50/cccccc/969696?text=User1" alt="Donor Avatar"><cite>Sarah K. - Happy Donor</cite></div></div>
+                     <div class="testimonial-card"><blockquote>As an NGO, receiving targeted donations through GiveZRoori has been invaluable. We get exactly what we need, when we need it.</blockquote><div class="testimonial-author"><img src="https://via.placeholder.com/50/cccccc/969696?text=NGO" alt="NGO Avatar"><cite>Mr. Ahmed - Bright Futures NGO</cite></div></div>
+                     <div class="testimonial-card"><blockquote>The pickup service was fantastic. Decluttering my house felt good, knowing the items were going to a good cause easily.</blockquote><div class="testimonial-author"><img src="https://via.placeholder.com/50/cccccc/969696?text=User2" alt="Donor Avatar"><cite>David L. - Repeat Donor</cite></div></div>
+                </div>
+            </div>
+        </section>
+
+         <!-- Contact Section Placeholder -->
+         <section id="contact" class="main-content-section" style="text-align: center; background-color: var(--light-bg);">
+              <div class="container">
+                   <h2>Contact Us</h2>
+                   <p>Have questions? Get in touch!</p>
+                   <p><i>[Contact Form / Details Placeholder]</i></p>
+                   <a href="mailto:info@givezroori.com" class="btn btn-primary">Email Us</a>
+              </div>
+         </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                 <div class="footer-section about"><h4>About GiveZRoori</h4><p>Connecting donors with NGOs...</p><div class="footer-socials"><a href="#" aria-label="Facebook">F</a><a href="#" aria-label="Twitter">T</a><a href="#" aria-label="Instagram">I</a></div></div>
+                 <div class="footer-section links"><h4>Quick Links</h4><ul><li><a href="#about" class="about-us-link">About Us</a></li><li><a href="#how-it-works" class="homepage-link">How It Works</a></li><li><a href="#featured-ngos" class="homepage-link">Featured NGO</a></li><li><a href="#faq">FAQs</a></li><li><a href="#blog">Blog</a></li></ul></div>
+                 <div class="footer-section links"><h4>Support</h4><ul><li><a href="#contact" class="contact-link">Contact Us</a></li><li><a href="#privacy">Privacy Policy</a></li><li><a href="#terms">Terms & Conditions</a></li><li><a href="#ngo-policy">NGO Policy</a></li></ul></div>
+                 <div class="footer-section contact"><h4>Contact Info</h4><p>Email: info@givezroori.com</p><p>Phone: +123 456 7890</p><p>Location: Your City, Country</p></div>
+            </div>
+            <div class="footer-bottom">© 2024 GiveZRoori | All Rights Reserved</div>
+        </div>
+    </footer>
+
+    <!-- Supabase Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Main JavaScript -->
+    <script>
+        // --- Supabase Initialization ---
+        const SUPABASE_URL = 'https://aldidhpvzueivmewciyz.supabase.co'; // <-- PASTE YOUR ACTUAL PROJECT URL HERE
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFsZGlkaHB2enVlaXZtZXdjaXl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQxMjI1OTcsImV4cCI6MjA1OTY5ODU5N30.gEIGPM5lcGkxJEMCCc2q4EeWtCzy1y9VJaOgBL5AOQ0'; // Your key
+
+        // Create a single Supabase client for interacting with your database
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // --- DOM References ---
+        const menuToggle = document.getElementById('menu-toggle');
+        const mainNav = document.getElementById('main-nav');
+        const allNavLinks = mainNav.querySelectorAll('a.nav-link'); // Generic class for all nav links
+        const aboutUsLink = mainNav.querySelector('a.about-us-link');
+        const homepageLinks = mainNav.querySelectorAll('a.homepage-link'); // Links that show homepage sections
+        const aboutSection = document.getElementById('about');
+        const mainContentSections = document.querySelectorAll('.main-content-section'); // Sections belonging to homepage flow
+        const header = document.querySelector('.main-header');
+        const donateMoneyContainer = document.getElementById('donate-money-form-container');
+        const donateItemsContainer = document.getElementById('donate-items-options-container');
+        const itemFormsWrapper = document.getElementById('item-forms-wrapper');
+        const allItemForms = document.querySelectorAll('.item-donation-form');
+        const itemCategoryButtons = document.querySelectorAll('.item-category-btn');
+        const confirmationSection = document.getElementById('confirmation-section');
+        const referenceIdElement = document.getElementById('reference-id');
+        const moneyForm = document.getElementById('money-donation-form'); // Reference money form
+
+
+        // --- Mobile Menu Logic ---
+        if (menuToggle && mainNav) {
+            menuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('active');
+            });
+        }
+
+        // Close mobile menu when any nav link is clicked
+        allNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                }
+            });
+        });
+
+        // --- Page Switching Logic ---
+        function showAboutPage() {
+            // Hide all main homepage sections
+            mainContentSections.forEach(section => section.style.display = 'none');
+            // Show the About Us section
+            if (aboutSection) aboutSection.style.display = 'block';
+            // Update active link state
+            updateActiveNav(aboutUsLink);
+            // Scroll to top of the page or section
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+             // Disable scroll spy when About Us is shown
+             window.removeEventListener('scroll', handleScrollSpy);
+        }
+
+        function showHomepageLayout(targetSectionId = 'hero') {
+             // Hide the About Us section
+            if (aboutSection) aboutSection.style.display = 'none';
+            // Show all main homepage sections
+            mainContentSections.forEach(section => section.style.display = 'block'); // Or their original display value if needed
+
+            // Find the nav link corresponding to the target section
+            const targetLink = mainNav.querySelector(`a[href="#${targetSectionId}"]`);
+            updateActiveNav(targetLink);
+
+            // Scroll to the target section (allow default behavior or handle manually)
+            const targetElement = document.getElementById(targetSectionId);
+            if (targetElement) {
+                 const headerHeight = header ? header.offsetHeight : 70; // Get header height
+                 const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                 const offsetPosition = elementPosition - headerHeight - 20; // Adjust offset as needed
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            } else {
+                 window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top if target not found (e.g., Home)
+            }
+             // Re-enable scroll spy when homepage is shown
+             window.addEventListener('scroll', handleScrollSpy, { passive: true });
+             // Trigger scroll spy immediately after showing homepage sections
+             setTimeout(handleScrollSpy, 100); // Small delay to ensure layout is updated
+        }
+
+        function updateActiveNav(activeLink) {
+            allNavLinks.forEach(link => link.classList.remove('active'));
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
+        // --- Event Listeners for Navigation ---
+        if (aboutUsLink) {
+            aboutUsLink.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default anchor jump
+                showAboutPage();
+            });
+        }
+
+        homepageLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                 // Find the target section ID from href
+                 const targetId = link.getAttribute('href')?.substring(1);
+                 if (targetId) {
+                     // If the target section exists, prevent default only if we are currently showing 'About Us'
+                     // Otherwise, let the default smooth scroll handle it (if needed, or handle manually)
+                    if (aboutSection && aboutSection.style.display === 'block') {
+                        event.preventDefault();
+                        showHomepageLayout(targetId);
+                    } else {
+                         // Allow default scroll OR handle manually if smooth scroll CSS isn't enough
+                         event.preventDefault(); // Prevent default jump, we'll scroll manually
+                         showHomepageLayout(targetId); // Show layout and scroll
+                    }
+                 } else if (link.getAttribute('href') === '#hero') { // Special case for "Home" link
+                     event.preventDefault();
+                     showHomepageLayout('hero');
+                 }
+                 // If it's a link *not* handled here (e.g., #contact), let default behavior happen or add specific handlers
+            });
+        });
+
+         // Handle potential Contact link (assuming it's part of homepage flow)
+         const contactLink = mainNav.querySelector('a[href="#contact"]');
+         if (contactLink) {
+              contactLink.addEventListener('click', (event) => {
+                   event.preventDefault();
+                   showHomepageLayout('contact');
+              });
+         }
+
+        // --- Scroll Spy Logic ---
+        function handleScrollSpy() {
+             // Do not run if About Us is displayed
+             if (aboutSection && aboutSection.style.display === 'block') {
+                 return;
+             }
+
+            let current = '';
+            const headerHeight = header ? header.offsetHeight : 70;
+            const scrollBuffer = window.innerHeight * 0.4; // Adjust detection sensitivity
+
+            mainContentSections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                 // Check if section is visible
+                 if (section.style.display !== 'none') {
+                      // Check if the top of the viewport is within the section bounds
+                      if (pageYOffset >= (sectionTop - headerHeight - scrollBuffer) && pageYOffset < (sectionTop + sectionHeight - headerHeight - scrollBuffer)) {
+                        current = section.getAttribute('id');
+                      }
+                 }
+            });
+
+            // Fallback for top of page
+            if (!current && pageYOffset < window.innerHeight / 2) {
+                 const firstVisibleSection = document.querySelector('.main-content-section:not([style*="display: none"])');
+                 if(firstVisibleSection) current = firstVisibleSection.id;
+            }
+             // Ensure 'hero' is active if scrolled fully to top
+             if (pageYOffset < 100) current = 'hero';
+
+            // Update nav links based on 'current' section
+             allNavLinks.forEach(a => {
+                 a.classList.remove('active');
+                 const linkHref = a.getAttribute('href');
+                 if (linkHref && linkHref.startsWith('#') && linkHref.substring(1) === current) {
+                     a.classList.add('active');
+                 }
+             });
+
+              // Ensure 'Home' is active if nothing else matches and we're on homepage layout
+              if (!mainNav.querySelector('a.active') && (!aboutSection || aboutSection.style.display === 'none')) {
+                   const homeLink = mainNav.querySelector('a[href="#hero"]');
+                   if (homeLink) homeLink.classList.add('active');
+              }
+        }
+        // Attach initially only if About Us is not shown (which it isn't by default)
+        window.addEventListener('scroll', handleScrollSpy, { passive: true });
+
+        // --- Donate Page Logic (UI Functions) ---
+        const pickupDropoffHTML = `<div class="pickup-dropoff-form"><h4>Pickup or Drop-off Details</h4><div class="form-group"><label>Choose Option:</label><div class="radio-group"><label><input type="radio" name="delivery_option" value="pickup" checked onchange="togglePickupFields(this)"> Request Pickup</label><label><input type="radio" name="delivery_option" value="dropoff" onchange="togglePickupFields(this)"> I will Drop-off</label></div></div><div class="pickup-fields"><div class="form-group"><label for="donor_name">Your Name:</label><input type="text" id="donor_name" name="donor_name" required></div><div class="form-group"><label for="donor_address">Pickup Address:</label><textarea id="donor_address" name="donor_address" rows="3" required></textarea></div><div class="form-group"><label for="donor_contact">Contact Number:</label><input type="tel" id="donor_contact" name="donor_contact" required pattern="[0-9]{10,}" title="Please enter a valid phone number (at least 10 digits)"></div><div class="form-group"><label for="pickup_date">Preferred Pickup Date:</label><input type="date" id="pickup_date" name="pickup_date" min="${new Date().toISOString().split('T')[0]}"></div><div class="form-group"><label for="pickup_time">Preferred Pickup Time:</label><select id="pickup_time" name="pickup_time"><option value="" disabled selected>-- Select Time Slot --</option><option value="Morning (9am-12pm)">Morning (9am-12pm)</option><option value="Afternoon (1pm-4pm)">Afternoon (1pm-4pm)</option><option value="Evening (4pm-7pm)">Evening (4pm-7pm)</option></select></div></div><div class="dropoff-info" style="display: none;"><p>Thank you! Please drop off items at our nearest partner center...</p><p><i>[Placeholder: List of drop-off zones...]</i></p></div></div>`;
+        document.querySelectorAll('.pickup-dropoff-section').forEach(section => { section.innerHTML = pickupDropoffHTML; });
+
+        function showDonateMoneyForm(){
+             if(donateItemsContainer) donateItemsContainer.style.display = 'none';
+             hideAllItemForms();
+             if(confirmationSection) confirmationSection.style.display = 'none';
+             if(donateMoneyContainer){
+                 donateMoneyContainer.style.display = 'block';
+                 const parentCard = donateMoneyContainer.closest(".donate-option-card");
+                 if(parentCard) parentCard.style.display = "flex"; // Ensure card is visible if somehow hidden
+                 donateMoneyContainer.scrollIntoView({behavior: "smooth", block: "nearest"});
+
+                 // Handle custom amount visibility
+                 const amountRadios = donateMoneyContainer.querySelectorAll('input[name="amount"]');
+                 const customAmountInput = donateMoneyContainer.querySelector('#custom-amount');
+                 if (amountRadios.length > 0 && customAmountInput) {
+                    amountRadios.forEach(radio => {
+                        radio.onchange = () => {
+                            const showCustom = radio.value === 'custom' && radio.checked;
+                            customAmountInput.style.display = showCustom ? 'block' : 'none';
+                            customAmountInput.required = showCustom;
+                            if (showCustom) customAmountInput.focus();
+                        };
+                    });
+                    // Trigger initial check
+                    const checkedRadio = donateMoneyContainer.querySelector('input[name="amount"]:checked');
+                    checkedRadio?.dispatchEvent(new Event('change'));
+                 }
+             }
+        }
+
+        function showDonateItemsOptions(){
+            if(donateMoneyContainer) donateMoneyContainer.style.display = 'none';
+            hideAllItemForms(); // Hide any specific item forms first
+            if(confirmationSection) confirmationSection.style.display = 'none';
+            if(donateItemsContainer){
+                donateItemsContainer.style.display = 'block';
+                const parentCard = donateItemsContainer.closest(".donate-option-card");
+                if(parentCard) parentCard.style.display = "flex"; // Ensure card is visible
+                donateItemsContainer.scrollIntoView({behavior: "smooth", block: "nearest"});
+            }
+        }
+
+        function togglePickupFields(radioInput){
+            const formContainer = radioInput.closest('.pickup-dropoff-form');
+            if(!formContainer) return;
+            const pickupFieldsDiv = formContainer.querySelector('.pickup-fields');
+            const dropoffInfoDiv = formContainer.querySelector('.dropoff-info');
+            const requiredInputs = formContainer.querySelectorAll('.pickup-fields input[required], .pickup-fields textarea[required]');
+
+            if(radioInput.value === 'pickup' && radioInput.checked){
+                if(pickupFieldsDiv) pickupFieldsDiv.style.display = 'block';
+                if(dropoffInfoDiv) dropoffInfoDiv.style.display = 'none';
+                requiredInputs.forEach(input => input.required = true);
+            } else if (radioInput.value === 'dropoff' && radioInput.checked){
+                 if(pickupFieldsDiv) pickupFieldsDiv.style.display = 'none';
+                if(dropoffInfoDiv) dropoffInfoDiv.style.display = 'block';
+                requiredInputs.forEach(input => input.required = false); // Mark as not required for validation
+            }
+        }
+
+        function hideAllItemForms(){
+            allItemForms.forEach(formEl => {
+                 if(formEl.parentElement) formEl.parentElement.style.display = 'none'; // Hide the container div
+             });
+            itemCategoryButtons.forEach(btn => btn.classList.remove('active'));
+        }
+
+        // Add listeners to category buttons to show specific item forms
+        itemCategoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const formId = button.getAttribute('data-form');
+                hideAllItemForms(); // Hide others first
+                if(confirmationSection) confirmationSection.style.display = 'none';
+
+                const targetFormContainer = document.getElementById(formId);
+                if(targetFormContainer){
+                    targetFormContainer.style.display = 'block'; // Show the container
+                    button.classList.add('active');
+
+                    // Reset delivery option to default 'pickup' and show relevant fields
+                    const pickupRadio = targetFormContainer.querySelector('input[name="delivery_option"][value="pickup"]');
+                    if(pickupRadio) {
+                         pickupRadio.checked = true; // Ensure pickup is default
+                         togglePickupFields(pickupRadio); // Update field visibility
+                    }
+
+                    targetFormContainer.scrollIntoView({behavior: 'smooth', block: 'start'});
+                }
+            });
+        });
+
+
+        // --- Supabase Form Submission Logic ---
+
+        // ** ITEM DONATION FORM SUBMISSION **
+        document.querySelectorAll('.donation-form[data-item-type]').forEach(form => {
+            form.addEventListener('submit', async (event) => { // Add async
+                event.preventDefault();
+                form.querySelectorAll('[style*="border: 1px solid red"]').forEach(el => el.style.border = ""); // Reset errors
+
+                // --- Form Validation (Keep existing logic) ---
+                const deliveryOption = form.querySelector('input[name="delivery_option"]:checked');
+                let isValid = true;
+                const requiredFields = form.querySelectorAll("[required]"); // Get potentially required fields
+
+                 // Re-evaluate required status based on pickup/dropoff selection
+                requiredFields.forEach(field => {
+                    const pickupFieldsDiv = field.closest('.pickup-fields');
+                    const isPickupField = pickupFieldsDiv !== null;
+                    const pickupSelected = deliveryOption && deliveryOption.value === 'pickup';
+
+                    // Determine if the field is TRULY required for this submission
+                    let isActuallyRequired = field.hasAttribute('required'); // Original state
+                    if (isPickupField && !pickupSelected) {
+                        isActuallyRequired = false; // Not required if it's a pickup field but dropoff is selected
+                    }
+
+                    if (isActuallyRequired) {
+                        if (!field.value || (field.type === 'radio' && !form.querySelector(`input[name="${field.name}"]:checked`)) || (field.type === 'checkbox' && !field.checked)) {
+                             if(field.offsetParent !== null) { // Only mark visible fields
+                                console.error(`Field "${field.name || field.id}" is required.`);
+                                field.style.border = '1px solid red';
+                                const group = field.closest('.radio-group, .checkbox-group');
+                                if (group && !group.style.border) { // Avoid nested borders
+                                    group.style.border = '1px solid red';
+                                }
+                                isValid = false;
+                            }
+                        } else {
+                             field.style.border = "";
+                            const group = field.closest('.radio-group, .checkbox-group');
+                            if(group) group.style.border = "";
+                        }
+                    } else {
+                         // Ensure non-required fields don't have error styling
+                         field.style.border = "";
+                        const group = field.closest('.radio-group, .checkbox-group');
+                        if(group) group.style.border = "";
+                    }
+                });
+
+
+                if (!isValid) {
+                    alert("Please fill in all required fields (marked in red).");
+                    const firstError = form.querySelector('[style*="border: 1px solid red"]');
+                    if (firstError) {
+                        firstError.focus();
+                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    return;
+                }
+                // --- End Validation Logic ---
+
+
+                // ** Collect Data for Supabase **
+                const formData = new FormData(form);
+                const formObject = Object.fromEntries(formData.entries());
+                const itemType = form.dataset.itemType;
+                const referenceId = 'GZR-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+                let itemDetailsText = '';
+                if (itemType === 'Clothes') {
+                    itemDetailsText = `Type: ${formObject.clothes_type || 'N/A'}, Condition: ${formObject.clothes_condition || 'N/A'}`;
+                } else if (itemType === 'Toys') {
+                    itemDetailsText = `Type: ${formObject.toys_type || 'N/A'}, Condition: ${formObject.toys_condition || 'N/A'}`;
+                } else if (itemType === 'Books') {
+                    itemDetailsText = `Type: ${formObject.books_type || 'N/A'}, Language: ${formObject.book_language || 'N/A'}`;
+                }
+
+                const donationData = {
+                    reference_id: referenceId,
+                    donation_type: 'Item',
+                    donor_name: formObject.donor_name || null, // Use null if potentially empty and not required for dropoff
+                    donor_contact: formObject.donor_contact || null,
+                    donor_address: formObject.donor_address || null,
+                    item_category: itemType,
+                    item_details: itemDetailsText,
+                    item_description: formObject.other_description || null, // Only for 'Other Items' form
+                    delivery_option: formObject.delivery_option || null,
+                    pickup_date: formObject.pickup_date || null,
+                    pickup_time: formObject.pickup_time || null,
+                    status: formObject.delivery_option === 'pickup' ? 'Pending Pickup' : 'Pending Dropoff'
+                    // money fields will be null/default
+                };
+
+                // Add selected NGO if applicable (needs NGO selection UI element)
+                // donationData.ngo_id = selectedNgoId || null;
+
+                console.log('Submitting Item Donation to Supabase:', donationData); // For debugging
+
+                // Disable submit button during submission
+                const submitButton = form.querySelector('button[type="submit"]');
+                if(submitButton) submitButton.disabled = true; submitButton.textContent = 'Submitting...';
+
+
+                try {
+                    // ** Insert into Supabase **
+                    const { data, error } = await supabase
+                        .from('donations') // Your table name
+                        .insert([donationData])
+                        .select(); // Optionally select the inserted data back
+
+                    if (error) {
+                        console.error('Supabase Insert Error:', error);
+                        alert(`Submission failed: ${error.message}\n\nPlease check the details and try again. Make sure column names in the code match your Supabase table.`);
+                        if(submitButton) submitButton.disabled = false; submitButton.textContent = `Submit ${itemType} Donation`;// Re-enable button
+                        return; // Stop execution if error
+                    }
+
+                    console.log('Supabase Insert Success:', data);
+
+                    // ** Show Confirmation ** (Keep existing logic)
+                    if (referenceIdElement) referenceIdElement.textContent = referenceId;
+                    if(form.parentElement) form.parentElement.style.display = 'none'; // Hide the specific form container
+                    hideAllItemForms(); // Ensure all forms are hidden
+                    if (confirmationSection) {
+                        confirmationSection.style.display = 'block';
+                        confirmationSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    form.reset();
+                     // Reset visual error states just in case
+                     form.querySelectorAll('[style*="border: 1px solid red"]').forEach(el => el.style.border = "");
+                     form.querySelectorAll('.radio-group[style*="border"], .checkbox-group[style*="border"]').forEach(el => el.style.border = "");
+                     const defaultPickupRadio = form.querySelector('input[name="delivery_option"][value="pickup"]');
+                     if (defaultPickupRadio) { defaultPickupRadio.checked = true; togglePickupFields(defaultPickupRadio); } // Reset pickup/dropoff fields view
+
+
+                } catch (catchError) {
+                    console.error('Unexpected Error:', catchError);
+                    alert(`An unexpected error occurred: ${catchError.message}`);
+                    if(submitButton) submitButton.disabled = false; submitButton.textContent = `Submit ${itemType} Donation`;// Re-enable button
+                } finally {
+                     // Ensure button is re-enabled even if something unexpected happened before return
+                     if(submitButton) submitButton.disabled = false; submitButton.textContent = `Submit ${itemType} Donation`;
+                }
+            });
+        });
+
+
+        // ** MONEY DONATION FORM SUBMISSION **
+        if (moneyForm) {
+            moneyForm.addEventListener('submit', async (event) => { // Add async
+                event.preventDefault();
+                 moneyForm.querySelectorAll('[style*="border: 1px solid red"]').forEach(el => el.style.border = ""); // Reset errors
+
+                // --- Form Validation (Keep existing logic) ---
+                const customAmountInput = moneyForm.querySelector('#custom-amount');
+                const selectedAmountRadio = moneyForm.querySelector('input[name="amount"]:checked');
+                let isValid = true;
+                let amountValue = null;
+
+                 if (selectedAmountRadio && selectedAmountRadio.value === 'custom') {
+                    if (!customAmountInput || !customAmountInput.value || parseFloat(customAmountInput.value) <= 0) {
+                        alert('Please enter a valid positive custom amount.');
+                        if (customAmountInput) { customAmountInput.style.border = '1px solid red'; customAmountInput.focus(); }
+                        isValid = false;
+                    } else {
+                        amountValue = parseFloat(customAmountInput.value);
+                        if (customAmountInput) customAmountInput.style.border = "";
+                    }
+                } else if (selectedAmountRadio) {
+                     amountValue = parseFloat(selectedAmountRadio.value);
+                 } else {
+                    alert('Please select or enter a donation amount.');
+                    const amountGroup = moneyForm.querySelector('.amount-options .radio-group');
+                    if (amountGroup) amountGroup.style.border = '1px solid red';
+                    isValid = false;
+                }
+                 const amountGroupVisual = moneyForm.querySelector('.amount-options .radio-group');
+                 if(amountGroupVisual) amountGroupVisual.style.border = ""; // Reset border if valid or not custom
+
+                // Placeholder for Payment Gateway validation
+                if (!isValid) return;
+                // --- End Validation ---
+
+                 // ** Collect Data for Supabase **
+                 const formData = new FormData(moneyForm);
+                 const formObject = Object.fromEntries(formData.entries());
+                 const referenceId = 'GZR-M' + Math.random().toString(36).substring(2, 7).toUpperCase(); // Different prefix?
+                 const isAnonymous = formObject.anonymous === 'on';
+
+                const donationData = {
+                    reference_id: referenceId,
+                    donation_type: 'Money',
+                    money_amount: amountValue,
+                    money_is_recurring: formObject.recurring === 'on', // Checkbox value is 'on' if checked
+                    money_is_anonymous: isAnonymous,
+                    donor_name: isAnonymous ? 'Anonymous' : 'Payment Donor', // Placeholder, real name from payment gateway ideally
+                    status: 'Pending Payment' // Status before payment gateway interaction
+                    // Other fields like item_category, delivery_option etc. will be null
+                };
+
+                 console.log('Submitting Money Donation to Supabase (Pre-Payment):', donationData);
+
+                // --- SIMULATE PAYMENT & INSERT ---
+                // In a real app, you would integrate a payment gateway here.
+                // Only after successful payment would you insert or update status in Supabase.
+                alert('Proceeding to Payment Gateway (Simulation)');
+
+                // Disable submit button
+                const submitButton = moneyForm.querySelector('button[type="submit"]');
+                if(submitButton) submitButton.disabled = true; submitButton.textContent = 'Processing...';
+
+                // *** Start Payment Gateway Integration Here ***
+                // This part is highly dependent on the chosen gateway (Razorpay, Stripe, etc.)
+                // Typically involves:
+                // 1. Calling your backend (or a Supabase Edge Function) to create a payment order/intent.
+                // 2. Using the payment gateway's JS SDK to open their checkout UI.
+                // 3. Handling the success or failure callback from the gateway.
+
+                // **** SIMULATING SUCCESS ****
+                // Assuming payment was successful:
+                 try {
+                     // Update status after simulated successful payment
+                     donationData.status = 'Completed';
+                     donationData.donor_name = isAnonymous ? 'Anonymous' : 'Payment Donor (Success)'; // Update name if needed
+
+                     const { data, error } = await supabase
+                         .from('donations')
+                         .insert([donationData]) // Insert the full record after success
+                         .select();
+
+                     if (error) {
+                         console.error('Supabase Insert Error (Money):', error);
+                         alert(`Saving donation record failed: ${error.message}\n\nPlease check the details and try again. Make sure column names in the code match your Supabase table.`);
+                         if(submitButton) submitButton.disabled = false; submitButton.textContent = 'Proceed to Payment';
+                         return;
+                     }
+
+                     console.log('Supabase Insert Success (Money):', data);
+
+                     // Show confirmation
+                     if (referenceIdElement) referenceIdElement.textContent = referenceId;
+                     if(moneyForm.parentElement) moneyForm.parentElement.style.display = 'none'; // Hide money form container
+                     hideAllItemForms(); // Ensure item forms also hidden if somehow visible
+                     if (confirmationSection) {
+                         confirmationSection.style.display = 'block';
+                         confirmationSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                     }
+                     moneyForm.reset();
+                     const customAmountInputReset = moneyForm.querySelector('#custom-amount');
+                     if (customAmountInputReset) { customAmountInputReset.style.display = 'none'; customAmountInputReset.style.border = ""; }
+                     const defaultMoneyRadio = moneyForm.querySelector('input[name="amount"][value="500"]');
+                     if(defaultMoneyRadio) defaultMoneyRadio.checked = true;
+
+
+                 } catch (catchError) {
+                     console.error('Unexpected Error (Money):', catchError);
+                     alert(`An unexpected error occurred: ${catchError.message}`);
+                     if(submitButton) submitButton.disabled = false; submitButton.textContent = 'Proceed to Payment';
+                 } finally {
+                     if(submitButton) submitButton.disabled = false; submitButton.textContent = 'Proceed to Payment';
+                 }
+                 // **** END SIMULATION ****
+
+                 // **** SIMULATING FAILURE / CANCELLATION ****
+                 /*
+                 else { // If payment gateway callback indicates failure/cancel
+                      alert('Payment was not completed.');
+                      if(submitButton) submitButton.disabled = false; submitButton.textContent = 'Proceed to Payment';
+                 }
+                 */
+
+
+            });
+        }
+
+        // Initial setup call if needed
+        // showHomepageLayout('hero');
+
+    </script>
+
+</body>
+</html>
